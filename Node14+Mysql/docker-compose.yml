@@ -16,17 +16,17 @@ services:
     networks:
       - node_app
     depends_on:
-      - database_capzen
+      - database
     environment:
       - WATCHPACK_POLLING=true
-  database_capzen:
-    container_name: database_capzen
+  database:
+    container_name: database
     tty: true
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: test
-      MYSQL_DATABASE: capzen_staging
-      MYSQL_USER: capzen_staging
+      MYSQL_DATABASE: database_root
+      MYSQL_USER: root
       MYSQL_PASSWORD: test
     volumes:
       - ./database-conf.cnf:/etc/mysql/conf.d/database-conf.cnf
