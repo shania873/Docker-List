@@ -1,0 +1,11 @@
+version: "3"
+services:
+  coldfusion:
+    image: ortussolutions/commandbox
+    container_name: coldfusion
+    ports:
+      - 8500:8500
+    volumes:
+      - ./app:/app
+    environment:
+      - WATCHPACK_POLLING=true

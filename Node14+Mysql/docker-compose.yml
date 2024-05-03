@@ -1,0 +1,36 @@
+version: "3.8"
+networks:
+  node_app:
+services:
+  node:
+    container_name: node_capzen
+    tty: true
+    image: node:14-alpine
+    volumes:
+      - ./:/var/www/
+    # command: npm run start
+    ports:
+      - "4000:4000"
+      - "3000:3000"
+      - "4040:4040"
+    networks:
+      - node_app
+    depends_on:
+      - database_capzen
+    environment:
+      - WATCHPACK_POLLING=true
+  database_capzen:
+    container_name: database_capzen
+    tty: true
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: capzen_staging
+      MYSQL_USER: capzen_staging
+      MYSQL_PASSWORD: test
+    volumes:
+      - ./database-conf.cnf:/etc/mysql/conf.d/database-conf.cnf
+    ports:
+      - "3307:3306"
+    networks:
+      - node_app
